@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Clasificadores - Observaciones para elegir mejor</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/white.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<style>
+		p {
+			text-align: left;
+		}
+		.vspace {
+			visibility: hidden;
+			height: 50px;
+		}
+		#title-author {
+			text-align: center;
+		}
+		.slides .footer{
+		  position:absolute;
+		  bottom: -10%;
+		  left: 35%;
+		  font-size: 35%;
+		}
+
+		</style>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+<div class="reveal"> <div class="slides">
+
+<section>
+	<h1>Clasificadores</h1>
+	<h4>Observaciones para elegir mejor</h4>
+	<p id="title-author"><small>
+		<a href="mailto:rafacarrascosa@gmail.com">Rafael Carrascosa</a> -
+		<a href="http://www.meetup.com/Encuentros-Data-Science-Cordoba/events/224080494/">Encuentro Data Science Cordoba</a>
+	</small></p>
+	<div class="footer">
+		<a href="http://rafacarrascosa.github.io/clasificadores-slides">http://rafacarrascosa.github.io/clasificadores-slides</a>
+	</div>
+
+</section>
+
+<section data-markdown data-separator="^\n\n\n" data-separator-vertical="^\n\n" data-separator-notes="^Note:"><script type="text/template">
+### Outline
+
+- Introducción
+- Nonlinearity
+- Native multiclass
+- Score/Probability
+- Curse of dimensionality
+- Cierre y preguntas
+
+Note:
+**Sumar criterios para decidir qué clasificador usar frente a un problema.**
+
+No exhaustiva. Apunto a nombrar las cosas que veo menos dichas en otros lado.
+
+Gente con un poco de experiencia con Machine Learning.
+
+Me sirve para dar la charla que me interrumpan con preguntas.
+</script></section>
+
+<section data-markdown data-separator="^\n\n\n" data-separator-vertical="^\n\n" data-separator-notes="^Note:"><script type="text/template">
+### Atributos
+
+- Nonlinearity
+- Native multiclass
+- Score/Probability
+- Curse of dimensionality (Noise/Dilution/Rarefied)
+- Others: time complexity, memory consumption.
+
+Note:
+Algunos de los features parece que no necesitaran mucha más explicación, pero
+mi intención en esta charla es aumentar la visibilidad en cuan impotante pueden
+ser.
+</script></section>
+
+<section data-markdown data-separator="^\n\n\n" data-separator-vertical="^\n\n" data-separator-notes="^Note:"><script type="text/template">
+### Clasificadores
+
+<img src="images/clas.png"></img>
+
+</script></section>
+
+<section data-markdown data-separator="^\n\n\n" data-separator-vertical="^\n\n" data-separator-notes="^Note:"><script type="text/template">
+### Nonlinearity
+
+<img src="images/nonlinear.png"></img>
+
+No lineales: SVM-RBF, Nearest neighbors, Decision tree
+
+Lineales: SVM-Lineal, Logistic regression
+
+Note:
+Lo más simple de explicar. O almenos el problema que todos encontramos temprano.
+</script></section>
+
+<section data-markdown data-separator="^\n\n\n" data-separator-vertical="^\n\n" data-separator-notes="^Note:"><script type="text/template">
+### Native multiclass
+
+Pros:
+ - Ser más simple de usar
+ - Requerir menor uso de recursos (CPU, RAM)
+ - Tener mejor performance (p.ej. accuracy)
+
+Estrategias multiclase:
+ - One vs Rest
+ - One vs One
+ - Éxoticas: Error correcting codes, hierarchical
+
+Multiclase nativo: KNN, Decision trees, Naive bayes
+
+Note:
+Algo que a veces se pasa por alto es que muchisimos clasificadores son binarios,
+y que para trabajar con más de dos clases hace falta wrapearlos con alguna
+estrategia multiclase.
+
+</script></section>
+
+<section data-markdown data-separator="^\n\n\n" data-separator-vertical="^\n\n" data-separator-notes="^Note:"><script type="text/template">
+<h3></h3>
+<img src="images/knn.png" alt="Imagen tomada de wikipedia"></img>
+<p>Como KNN toma una muestra del entrenamiento, los labels pueden ser cualquier cosa</p>
+</script></section>
+
+<section data-markdown data-separator="^\n\n\n" data-separator-vertical="^\n\n" data-separator-notes="^Note:"><script type="text/template">
+### Score/Probability
+
+**Aplicación**: Nos piden detectar clientes que comprarán un servicio en
+base a un historial. Como disparar acciones comerciales contra los clientes
+predichos cuesta dinero, también se quiere ordenar los clientes de mayor chance
+de éxito a menor chance de éxito.
+
+a <!-- .element: class="vspace" -->
+
+Clasificadores con score pulenta: SVM , Naive bayes
+
+Particularmente malos:  Knn, decision trees
+
+Note:
+Para algunas aplicaciones es útil tener un score que es indicador de la
+certeza de la predicción.
+
+Casi todos los clasificadores ofrecen un score de alguna forma, aunque en muchos
+casos los números son demasiado groseros para ser útiles.
+</script></section>
+
+<section data-markdown data-separator="^\n\n\n" data-separator-vertical="^\n\n" data-separator-notes="^Note:"><script type="text/template">
+### Curse of dimensionality
+
+- Noise: Decision tree, SVM Linear, Naive bayes, ...
+- Rarefied: Capacidad de aprovechar puchitos de informacion de muchos features
+  poco informativos. SVM Linear.
+- Dilution: Perder un feature muy informativo en varios poco informativos.
+  Decision tree./
+
+</script></section>
+
+<section data-markdown data-separator="^\n\n\n" data-separator-vertical="^\n\n" data-separator-notes="^Note:"><script type="text/template">
+<section><img src="images/curse00.png"></img><small>No noise</small></section>
+<section><img src="images/curse01.png"></img><small>1 noisy feature</small></section>
+<section><img src="images/curse02.png"></img><small>2 noisy features</small></section>
+<section><img src="images/curse03.png"></img><small>3 noisy features</small></section>
+<section><img src="images/curse04.png"></img><small>4 noisy features</small></section>
+<section><img src="images/curse05.png"></img><small>5 noisy features</small></section>
+<section><img src="images/curse10.png"></img><small>10 noisy features</small></section>
+<section><img src="images/curse30.png"></img><small>30 noisy features</small></section>
+</script></section>
+
+<section data-markdown data-separator="^\n\n\n" data-separator-vertical="^\n\n" data-separator-notes="^Note:"><script type="text/template">
+Cierre y preguntas
+------------------
+
+Note:
+'Decision trees es awesome!' Nonlinear, native multiclass, inmune al ruido.
+  Su gran limitación es que si hay N features útiles hace falta 2**N puntos de
+  entrenamiento para usarlos.
+</script></section>
+
+</div> </div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				width: 960,  // 960, 1440
+			    height: 700,  // 700, 1050
+
+				transition: 'none', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/math/math.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
