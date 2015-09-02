@@ -111,7 +111,7 @@ ser.
 ### Clasificadores
 
 <img src="images/clas.png"></img>
-
+<small><a href="https://docs.google.com/spreadsheets/d/174mOTOOjeWPN6FJmo9_l9LvUiRO31guzljVxbMpHB_g/edit?usp=sharing">Tabla comparativa</a></small>
 </script></section>
 
 <section data-markdown data-separator="^\n\n\n" data-separator-vertical="^\n\n" data-separator-notes="^Note:"><script type="text/template">
@@ -130,20 +130,21 @@ Lo más simple de explicar. O almenos el problema que todos encontramos temprano
 <section data-markdown data-separator="^\n\n\n" data-separator-vertical="^\n\n" data-separator-notes="^Note:"><script type="text/template">
 ### Native multiclass
 
-Pros:
- - Ser más simple de usar
- - Requerir menor uso de recursos (CPU, RAM)
- - Tener mejor performance (p.ej. accuracy)
-
 Estrategias multiclase:
  - One vs Rest
  - One vs One
  - Éxoticas: Error correcting codes, hierarchical
 
+Pros:
+ - Ser más simple de usar
+ - Requerir menor uso de recursos (CPU, RAM)
+ - Tal vez tener mejor performance (p.ej. accuracy)
+
 Multiclase nativo: KNN, Decision trees, Naive bayes
 
 Note:
 Algo que a veces se pasa por alto es que muchisimos clasificadores son binarios,
+(SVM),
 y que para trabajar con más de dos clases hace falta wrapearlos con alguna
 estrategia multiclase.
 
@@ -153,6 +154,12 @@ estrategia multiclase.
 <h3></h3>
 <img src="images/knn.png" alt="Imagen tomada de wikipedia"></img>
 <p>Como KNN toma una muestra del entrenamiento, los labels pueden ser cualquier cosa</p>
+<aside class="notes">
+¿Porque KNN es multiclase?
+
+El mismo argumento aplica a decision tree.
+</aside>
+
 </script></section>
 
 <section data-markdown data-separator="^\n\n\n" data-separator-vertical="^\n\n" data-separator-notes="^Note:"><script type="text/template">
